@@ -16,6 +16,7 @@ export default createStore({
         summonerIcon: '',
         isVerified: false,
         data: null,
+        session: '',
     },
     mutations: {
         openModal(state) {
@@ -51,8 +52,8 @@ export default createStore({
         setSummonerIcon(state, summonerIcon) {
             state.summonerIcon = summonerIcon;
         },
-        setRank(state, payload) {
-            state.regForm.rank = payload;
+        setRank(state, rank) {
+            state.regForm.rank = rank;
         },
         updateRegForm(state, payload) {
             state.regForm[payload.field] = payload.value
@@ -72,6 +73,9 @@ export default createStore({
         updatesummonerName(state, payload) {
             state.regForm.summonerName = payload
         },
+        setSession(state, session) {
+            state.session = session
+        }
     },
     actions: {
         openModal({ commit }) {
@@ -103,5 +107,16 @@ export default createStore({
                 console.error(error);
             }
         },
-    }
+    },
+    getters: {
+        isLoggedIn: state => !!state.session
+    },
 });
+
+export const routeGuard = (getters, { to, from, next }) => {
+    if (!getters.isLoggedIn) {
+        next({ path: 'login' })
+    } else {
+        next()
+    }
+}

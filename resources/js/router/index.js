@@ -1,4 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { routeGuard } from '../store'
+import { useStore } from 'vuex';
+
 
 // Pages
 import Landing from '@/pages/Landing.vue'
@@ -16,7 +19,7 @@ import LandingLayout from '@/layouts/Landing.vue'
 import MainLayout from '@/layouts/Main.vue'
 import UserLayout from '@/layouts/User.vue'
 
-
+const store = useStore();
 const history = createWebHistory()
 const router = createRouter({
     history,
@@ -70,17 +73,18 @@ const router = createRouter({
                     path: 'dashboard',
                     component: Dashboard,
                     meta: { layout: UserLayout },
-                    beforeEnter: (to, from, next) => {
-                        if (isLoggedIn()) {
-                            next();
-                        } else {
-                            next({ path: 'login' });
-                        }
-                    },
+                    beforeEnter: routeGuard,
                 }
             ]
-        }
-    ]
+        },
+        {
+            path: '/api/set-session',
+            beforeEnter(to, from, next) {
+                store.commit('setSession', to.query.session);
+                next();
+            },
+        },
+    ],
 })
 
 export default router

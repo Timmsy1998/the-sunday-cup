@@ -79,8 +79,6 @@
                     <div class="modal-body" v-if="!showVerifyButton">
                         <p>Summoner Has Been Verified Successfully!</p>
                         <p>Summoner Name: {{ summonerName }}</p>
-                        <p>Server: EUW</p>
-                        <p>Curren Rank: {{ rank }}</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
@@ -255,11 +253,12 @@ export default {
                 const profileIcon = summonerData.profileIconId;
                 const rank = rankedData.tier + ' ' + rankedData.rank;
 
+                store.commit('setRank', rank);
+
                 // Check if summoner icon matches the one stored in the store
                 if (profileIcon === randomIcon) {
                     // Set isVerified to true in the store
                     store.commit('setIsVerified', true);
-                    store.commit('setRank', rank);
                     console.log(rank);
                     console.log(store.state.regForm.rank);
                     showVerifyButton.value = false;
