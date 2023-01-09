@@ -1,0 +1,256 @@
+@media (min-width: 1200px) {
+
+    body {
+        font-family: $amaranth;
+        background-color: $body-bg;
+        overflow-x: hidden;
+    }
+
+    .landing-layout {
+
+        .landing-page {
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            background-image: url('../images/TSC-Landing-Page-BG.gif');
+            background-repeat: repeat;
+        }
+
+        .btn-primary {
+            background-color: $gold;
+            border-color: $gold;
+            color: $purple;
+
+            &:hover {
+                background-color: lighten($gold, 10%);
+                border-color: lighten($gold, 10%);
+                color: $purple;
+            }
+        }
+
+        h1 {
+            color: $gold !important;
+            text-transform: uppercase !important;
+        }
+
+        p {
+            margin-bottom: 2rem;
+        }
+
+        .gold-text {
+            color: $gold;
+        }
+
+        .large-text {
+            font-size: 1rem;
+        }
+
+        .text-shadow {
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .text-border {
+            -webkit-text-stroke: 0.2rem $purple;
+            -moz-text-stroke: 0.2rem $purple;
+            text-stroke: 0.2rem $purple;
+        }
+
+        .container {
+            height: 100%;
+        }
+
+        .btn-group {
+            margin-top: 1rem;
+        }
+
+        .btn {
+            width: 500px;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+    }
+
+    .main-layout {
+        .text-gold {
+            color: $gold;
+        }
+
+        .text-purple {
+            color: $purple;
+        }
+
+        .font-amaranth {
+            font-family: 'Amaranth', sans-serif;
+        }
+
+        .bg-purple {
+            background-color: $body-bg;
+        }
+
+
+
+        .shadow-sm {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-group#features {
+
+            margin-left: 5rem;
+            margin-right: 3rem;
+
+            .card {
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                margin-right: 2rem;
+                height: 40rem;
+                width: 8rem;
+                border-radius: 5rem;
+                background-color: $gold;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1);
+                text-align: center;
+                text-align-last: center;
+
+                h5 {
+                    &.card-title {
+                        color: $purple;
+                        font-family: $amaranth;
+                        font-size: 2rem;
+                    }
+                }
+
+                &.card-image {
+                    background-color: #1e0826;
+                    background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%238743a0' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
+
+                    img {
+                        height: 85%;
+                        width: 100%;
+                        border-top-left-radius: 5rem;
+                        border-top-right-radius: 5rem;
+                    }
+
+                    h5 {
+                        &.card-title {
+                            color: $gold;
+                            font-family: $amaranth;
+                        }
+                    }
+
+                    p {
+                        &.card-text {
+                            color: $gold;
+                            font-family: $amaranth;
+                        }
+                    }
+
+                    .card-body {
+
+                        #card-left {
+                            margin-right: 3rem;
+                        }
+
+                        i {
+                            font-size: 2.25rem;
+                            color: $gold;
+                            margin-top: 1rem;
+                        }
+                    }
+
+                }
+
+            }
+
+        }
+
+        .jumbotron {
+            height: 50vh;
+            width: 100vw;
+            margin-bottom: 10rem;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            .btn-group#main-cta {
+                display: flex;
+
+                button {
+                    height: 4rem;
+                    flex: 1;
+                    border-radius: 0.5rem;
+                    margin: 0 0.5rem;
+
+                    &:first-child,
+                    &:last-child {
+                        border-color: $gold;
+                        color: $gold;
+                        background-color: transparent;
+                        border-radius: 0.5rem;
+                    }
+
+                    &:nth-child(2) {
+                        background-color: $gold;
+                        color: $purple;
+                        border-radius: 0.5rem;
+                    }
+                }
+
+            }
+
+            .left-half {
+                width: 80rem;
+                height: 70rem;
+                flex-grow: 0;
+                margin-top: 10rem;
+
+            }
+
+            .left-half img {
+                width: 100%;
+                height: 100%;
+                -webkit-filter: drop-shadow(0 0 calc(100vh + 0.5rem) rgba($light-purple, 0.5)) drop-shadow(0 0 calc(10vh - 0.5rem) rgba($light-purple, 0.5)) drop-shadow(10vw -10vh 0.5rem rgba($light-purple, 0.1));
+                -webkit-transform: scaleX(-1) rotate(-25deg);
+            }
+
+            .right-half {
+                flex-grow: 1;
+                position: absolute;
+                right: 0;
+                margin-right: 15rem;
+                margin-top: 25rem;
+
+                p {
+                    max-width: 25rem;
+                    overflow-x: auto;
+                }
+
+                h1 {
+                    text-transform: uppercase;
+                }
+            }
+        }
+    }
+
+        .user-layout {
+
+            .register {
+                .container {
+                    width: 50%;
+
+                    .visible-form {
+                        background-color: $content-container;
+                        width: 100%;
+                        margin: 0 auto;
+
+                        label {
+                            color: $gold;
+                        }
+
+                        input {
+                            color: $gold;
+                        }
+                    }
+                }
+            }
+        }
+}

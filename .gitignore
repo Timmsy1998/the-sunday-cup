@@ -1,0 +1,22 @@
+# Laravel specific
+/node_modules
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+/.env
+/.phpunit.result.cache
+/.idea
+/.vscode
+
+# Vue.js specific
+/public/js/app.js
+/public/js/app.css
+/public/css/app.css
+
+# Bootstrap specific
+/public/css/app.css
+/public/sass/_variables.scss
+
+# Vite specific
+/public/build
