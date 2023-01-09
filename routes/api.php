@@ -32,3 +32,5 @@ Route::get('/matchlist/{accountId}', 'App\Http\Controllers\ApiController@getMatc
 Route::get('/summoner-icons/all', 'App\Http\Controllers\ApiController@getAllSummonerIcons');
 Route::get('/summoner-icons/available', 'App\Http\Controllers\ApiController@getAvailableSummonerIcons');
 Route::get('/summoner-icons/random', 'App\Http\Controllers\ApiController@getRandomSummonerIcon');
+Route::patch('/summoner/rank-update', 'App\Http\Controllers\UserController@updateRank');
+
