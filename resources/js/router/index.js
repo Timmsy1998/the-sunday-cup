@@ -26,54 +26,94 @@ const router = createRouter({
     routes: [
         {
             path: '/',
-            redirect: '/landing'
+            redirect: '/landing',
+            beforeEnter(to, from, next) {
+                document.body.className = 'bg-default';
+                next();
+              },
         },
         {
             path: '/landing',
             component: Landing,
             meta: { layout: LandingLayout },
+            beforeEnter(to, from, next) {
+                document.body.className = 'bg-default';
+                next();
+              },
         },
         {
             path: '/home',
             component: Home,
             meta: { layout: MainLayout },
+            beforeEnter(to, from, next) {
+                document.body.className = 'bg-default';
+                next();
+              },
             children: [
                 {
                     path: 'about',
                     component: About,
                     meta: { layout: MainLayout },
+                    beforeEnter(to, from, next) {
+                        document.body.className = 'bg-default';
+                        next();
+                      },
                 },
                 {
                     path: 'contact',
                     component: Contact,
                     meta: { layout: MainLayout },
+                    beforeEnter(to, from, next) {
+                        document.body.className = 'bg-default';
+                        next();
+                      },
                 },
                 {
                     path: 'hall-of-fame',
                     component: HallOfFame,
                     meta: { layout: MainLayout },
+                    beforeEnter(to, from, next) {
+                        document.body.className = 'bg-default';
+                        next();
+                      },
                 }
             ]
         },
         {
             path: '/user',
             redirect: '/user/dashboard',
+            beforeEnter(to, from, next) {
+                document.body.className = 'bg-user';
+                next();
+              },
             children: [
                 {
                     path: 'login',
                     component: Login,
                     meta: { layout: UserLayout },
+                    beforeEnter(to, from, next) {
+                        document.body.className = 'bg-user';
+                        next();
+                      },
                 },
                 {
                     path: 'register',
                     component: Register,
                     meta: { layout: UserLayout },
+                    beforeEnter(to, from, next) {
+                        document.body.className = 'bg-user';
+                        next();
+                      },
                 },
                 {
                     path: 'dashboard',
                     component: Dashboard,
                     meta: { layout: UserLayout },
                     beforeEnter: routeGuard,
+                    beforeEnter(to, from, next) {
+                        document.body.className = 'bg-user';
+                        next();
+                      },
                 }
             ]
         },

@@ -2,8 +2,15 @@
 
     body {
         font-family: $amaranth;
-        background-color: $body-bg;
         overflow-x: hidden;
+
+        &.bg-user {
+            background-color: $bg-user;
+        }
+
+        &.bg-default {
+            background-color: $bg-default;
+        }
     }
 
     .landing-layout {
@@ -84,7 +91,7 @@
         }
 
         .bg-purple {
-            background-color: $body-bg;
+            background-color: $purple;
         }
 
 
@@ -231,26 +238,88 @@
         }
     }
 
-        .user-layout {
+    .user-layout {
+        .topbar {
+            background-color: $purple;
+            color: $gold;
+            font-family: $amaranth;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            height: 5rem;
 
-            .register {
-                .container {
-                    width: 50%;
+            .nav-link.img-circle {
+                width: 64px;
+                height: 64px;
+                border-radius: 50%;
+            }
 
-                    .visible-form {
-                        background-color: $content-container;
-                        width: 100%;
-                        margin: 0 auto;
+            .nav-link {
+                font-size: 16px;
+                font-weight: 600;
+                color: $gold;
+                font-family: $amaranth;
+            }
+        }
 
-                        label {
-                            color: $gold;
-                        }
+        .navigation {
+            background-color: $purple;
+            color: $gold;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 
-                        input {
-                            color: $gold;
-                        }
-                    }
+            .logo {
+                background-color: $light-purple;
+
+                img {
+                    height: 100px;
+                }
+            }
+
+            .nav-item {
+                &:hover {
+                    background-color: lighten($purple, 10%);
+                }
+
+                a {
+                    font-family: $amaranth;
+                    font-size: 1.2rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+
+            .collapse-enter-active,
+            .collapse-leave-active {
+                transition: max-height 5s ease;
+            }
+
+            .collapse-enter,
+            .collapse-leave-to {
+                max-height: 0;
+                overflow: hidden;
+            }
+        }
+
+
+
+    }
+
+    .register {
+        .container {
+            width: 50%;
+
+            .visible-form {
+                background-color: $content-container;
+                width: 100%;
+                margin: 0 auto;
+
+                label {
+                    color: $gold;
+                }
+
+                input {
+                    color: $gold;
                 }
             }
         }
+    }
 }
