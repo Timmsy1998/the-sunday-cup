@@ -12,6 +12,14 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public $incrementing=false;
+    protected $primaryKey = 'id';
+
+    public function sessions()
+    {
+        return $this->hasMany(Session::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -38,4 +46,5 @@ class User extends Authenticatable
     protected $casts = [
         'summoner_verified' => 'boolean',
     ];
+
 }

@@ -2,6 +2,7 @@
     <div class="register">
         <RegistrationForm />
     </div>
+
 </template>
 
 <script>

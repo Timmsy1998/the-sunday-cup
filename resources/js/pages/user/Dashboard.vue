@@ -1,5 +1,6 @@
 <template>
     <div class="dashboard">
+        test
     </div>
   </template>
 

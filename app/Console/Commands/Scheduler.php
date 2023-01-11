@@ -29,6 +29,6 @@ class Scheduler extends Command
     public function handle()
     {
         $client = new Client();
-        $client->patch('/api/summoner/rank-update');
+        $client->patch('https://sunday-cup.com/api/summoner/rank-update');
     }
 }

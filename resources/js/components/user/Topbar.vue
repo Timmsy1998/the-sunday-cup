@@ -5,7 +5,7 @@
                 <!-- Add navigation links here -->
             </ul>
             <ul class="navbar-nav ms-auto" v-if="isLoggedIn">
-                <li class="nav-item">
+                <li class="nav-item" >
                     <span class="nav-link" style="margin-top: 1rem;">Hi There, Username</span>
                 </li>
                 <li class="nav-item">
@@ -30,7 +30,7 @@ export default {
     computed: {
         isLoggedIn() {
             // Check the session status in the Vuex store
-            return this.$store.state.session.loggedIn;
+            return this.$store.state.isLoggedIn;
         },
     },
 };

@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { routeGuard } from '../store'
-import { useStore } from 'vuex';
+import store from '../store'
 
 
 // Pages
@@ -19,7 +18,6 @@ import LandingLayout from '@/layouts/Landing.vue'
 import MainLayout from '@/layouts/Main.vue'
 import UserLayout from '@/layouts/User.vue'
 
-const store = useStore();
 const history = createWebHistory()
 const router = createRouter({
     history,
@@ -30,7 +28,7 @@ const router = createRouter({
             beforeEnter(to, from, next) {
                 document.body.className = 'bg-default';
                 next();
-              },
+            },
         },
         {
             path: '/landing',
@@ -39,7 +37,7 @@ const router = createRouter({
             beforeEnter(to, from, next) {
                 document.body.className = 'bg-default';
                 next();
-              },
+            },
         },
         {
             path: '/home',
@@ -48,7 +46,7 @@ const router = createRouter({
             beforeEnter(to, from, next) {
                 document.body.className = 'bg-default';
                 next();
-              },
+            },
             children: [
                 {
                     path: 'about',
@@ -57,7 +55,7 @@ const router = createRouter({
                     beforeEnter(to, from, next) {
                         document.body.className = 'bg-default';
                         next();
-                      },
+                    },
                 },
                 {
                     path: 'contact',
@@ -66,7 +64,7 @@ const router = createRouter({
                     beforeEnter(to, from, next) {
                         document.body.className = 'bg-default';
                         next();
-                      },
+                    },
                 },
                 {
                     path: 'hall-of-fame',
@@ -75,7 +73,7 @@ const router = createRouter({
                     beforeEnter(to, from, next) {
                         document.body.className = 'bg-default';
                         next();
-                      },
+                    },
                 }
             ]
         },
@@ -85,7 +83,7 @@ const router = createRouter({
             beforeEnter(to, from, next) {
                 document.body.className = 'bg-user';
                 next();
-              },
+            },
             children: [
                 {
                     path: 'login',
@@ -94,7 +92,7 @@ const router = createRouter({
                     beforeEnter(to, from, next) {
                         document.body.className = 'bg-user';
                         next();
-                      },
+                    },
                 },
                 {
                     path: 'register',
@@ -103,28 +101,41 @@ const router = createRouter({
                     beforeEnter(to, from, next) {
                         document.body.className = 'bg-user';
                         next();
-                      },
+                    },
                 },
                 {
                     path: 'dashboard',
                     component: Dashboard,
                     meta: { layout: UserLayout },
-                    beforeEnter: routeGuard,
                     beforeEnter(to, from, next) {
                         document.body.className = 'bg-user';
                         next();
-                      },
+                    },
                 }
             ]
         },
-        {
-            path: '/api/set-session',
-            beforeEnter(to, from, next) {
-                store.commit('setSession', to.query.session);
-                next();
-            },
-        },
     ],
-})
+});
+
+
+router.beforeEach((to, from, next) => {
+    try {
+        store.dispatch('checkSession')
+            .then(() => {
+                if (to.path === '/user/dashboard') {
+                    if (store.state.isLoggedIn) {
+                        next();
+                    } else {
+                        next('/user/login');
+                    }
+                } else {
+                    next();
+                }
+            })
+    } catch (error) {
+        console.error(error);
+    }
+});
+
 
 export default router

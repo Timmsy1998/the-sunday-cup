@@ -2,7 +2,15 @@
     <div class="user-layout">
         <Topbar />
         <navigation />
-        <router-view />
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="content-box">
+                        <router-view />
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 

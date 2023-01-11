@@ -50,7 +50,7 @@ export default {
     computed: {
         isLoggedIn() {
             // Check the session status in the Vuex store
-            return this.$store.state.session.loggedIn;
+            return this.$store.state.isLoggedIn;
         },
     },
 };

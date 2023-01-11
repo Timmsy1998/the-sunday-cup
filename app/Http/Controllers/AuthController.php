@@ -5,12 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\User as User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Response;
 use GuzzleHttp\Client;
+use App\Models\Session as SessionModel;
 
 class AuthController extends Controller
 {
+    use AuthenticatesUsers;
 
     public function register(Request $request)
     {
@@ -53,24 +58,14 @@ class AuthController extends Controller
 
         // Start a Session For The Newly Registered User
         if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
-            // Start a new session for the user
-            session(['user_id' => Auth::id()]);
-
-            // Get the current user's session data
-            $session = Auth::user()->toArray();
-
-            // Set the state in the VueX store
-            $client = new Client();
-            $client->request('POST', '/api/set-session', [
-                'form_params' => [
-                    'session' => $session,
-                ],
-            ]);
+            $user = Auth::user();
+            $session = Session::createSession($user);
 
             // Return a response
             return Response::json([
                 'message' => 'Successfully logged in',
-                'user' => Auth::user()
+                'user' => Auth::user(),
+                'session' => $session
             ], 201);
         } else {
             // Return a response
@@ -96,34 +91,16 @@ class AuthController extends Controller
             ], 422);
         }
 
+        $credentials = $request->only('username', 'password');
+
         // Attempt to log the user in
-        if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
-            // Start a new session for the user
-            session(['user_id' => Auth::id()]);
-
-            // Get the current user's session data
-            $session = Auth::user()->toArray();
-
-            // Set the state in the VueX store
-            $client = new Client();
-            $client->request('POST', '/api/set-session', [
-                'form_params' => [
-                    'session' => $session,
-                ],
-            ]);
-
-            // Return a response
-            return Response::json([
-                'message' => 'Successfully logged in',
-                'user' => Auth::user()
-            ], 201);
+        if (Auth::attempt($credentials)) {
+            Auth::login(Auth::user());
+            Session::put('user_id', Auth::user()->id);
+            Session::save();
+            return response()->json(['success' => true, 'session' => Auth::user()->session]);
         } else {
-            // Return a response
-            return Response::json([
-                'errors' => [
-                    'username' => ['These credentials do not match our records.']
-                ]
-            ], 422);
+            return response()->json(['success' => false]);
         }
     }
 }

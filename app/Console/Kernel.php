@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Session;
 
 class Kernel extends ConsoleKernel
 {
@@ -16,6 +17,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('scheduledjobs')->hourly();
+        $schedule->call(function () {
+            // Delete all expired sessions from the database
+            Session::getHandler()->cleanup(time());
+            Session::whereNull('user_id')->delete();
+        })->hourly();
     }
 
     /**

@@ -1,5 +1,6 @@
 import { createStore } from 'vuex';
 import axios from 'axios';
+import createPersistedState from 'vuex-persistedstate'
 
 export default createStore({
     state: {
@@ -16,7 +17,7 @@ export default createStore({
         summonerIcon: '',
         isVerified: false,
         data: null,
-        session: '',
+        isLoggedIn: false,
     },
     mutations: {
         openModal(state) {
@@ -73,11 +74,22 @@ export default createStore({
         updatesummonerName(state, payload) {
             state.regForm.summonerName = payload
         },
-        setSession(state, session) {
-            state.session = session
-        }
+        setIsLoggedIn(state, value) {
+            state.isLoggedIn = value
+        },
     },
     actions: {
+        checkSession({ commit }) {
+            axios.get('/api/check-session')
+                .then(({ data }) => {
+                    if (data.sessionFound) {
+                        commit('setIsLoggedIn', true);
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
         openModal({ commit }) {
             commit('openModal');
         },
@@ -108,15 +120,7 @@ export default createStore({
             }
         },
     },
-    getters: {
-        isLoggedIn: state => !!state.session
-    },
+    plugins: [createPersistedState({
+        paths: ['isLoggedIn'],
+    })]
 });
-
-export const routeGuard = (getters, { to, from, next }) => {
-    if (!getters.isLoggedIn) {
-        next({ path: 'login' })
-    } else {
-        next()
-    }
-}

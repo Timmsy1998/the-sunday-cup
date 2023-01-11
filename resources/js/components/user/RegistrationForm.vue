@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="form-group col-12 mb-3">
+                <div class="form-group col-12 mb-3 center-button">
                     <button type="submit" class="btn btn-primary" v-if="isVerified">Submit</button>
                     <button type="button" class="btn btn-secondary" v-if="showVerifyButton" @click="openModal"
                         data-bs-toggle="modal" data-bs-target="#verificationModal">Verify

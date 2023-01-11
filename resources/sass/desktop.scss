@@ -299,27 +299,45 @@
             }
         }
 
-
-
-    }
-
-    .register {
         .container {
-            width: 50%;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-            .visible-form {
+            .content-box {
+                margin-top: 10vh;
+                margin-left: 10vh;
                 background-color: $content-container;
+                padding: 16px;
+                border-radius: 5px;
+                box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+            }
+
+            form {
                 width: 100%;
-                margin: 0 auto;
+                height: 100%;
 
                 label {
-                    color: $gold;
+                    color: $purple;
                 }
 
                 input {
-                    color: $gold;
+                    color: $purple;
+                }
+
+                button {
+                    background-color: $gold;
+                    color: $purple;
+                }
+
+                .center-button {
+                    margin-left: 50%;
                 }
             }
         }
+
+
+
     }
 }

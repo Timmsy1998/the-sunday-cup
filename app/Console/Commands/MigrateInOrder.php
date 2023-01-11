@@ -47,7 +47,8 @@ class MigrateInOrder extends Command
                         '2023_01_04_210142_create_teams_table.php',
                         '2014_10_12_000000_create_users_table.php',
                         '2014_10_12_100000_create_password_resets_table.php',
-                        '2019_08_19_000000_create_failed_jobs_table.php'
+                        '2019_08_19_000000_create_failed_jobs_table.php',
+                        '2023_01_10_151638_create_sessions_table.php',
         ];
 
         foreach($migrations as $migration)
