@@ -5,6 +5,17 @@ import createPersistedState from 'vuex-persistedstate'
 export default createStore({
     state: {
         modalOpen: false,
+        errors: {},
+        summonerIcon: '',
+        isVerified: false,
+        data: null,
+        userinfo: {
+            username: '',
+            summonerName: '',
+            rank: '',
+            isLoggedIn: false,
+            token: '',
+        },
         regForm: {
             username: '',
             email: '',
@@ -13,11 +24,13 @@ export default createStore({
             summonerName: '',
             rank: '',
         },
-        errors: {},
-        summonerIcon: '',
-        isVerified: false,
-        data: null,
-        isLoggedIn: false,
+    },
+    getters: {
+        username: state => state.userinfo.username,
+        summonerName: state => state.userinfo.summonerName,
+        rank: state => state.userinfo.rank,
+        isLoggedIn: state => state.userinfo.isLoggedIn,
+        token: state => state.userinfo.token,
     },
     mutations: {
         openModal(state) {
@@ -74,11 +87,26 @@ export default createStore({
         updatesummonerName(state, payload) {
             state.regForm.summonerName = payload
         },
-        setIsLoggedIn(state, value) {
-            state.isLoggedIn = value
-        },
+        setSession(state, data) {
+            state.userinfo.username = data.username
+            state.userinfo.rank = data.rank
+            state.userinfo.summonerName = data.summonerName
+            state.userinfo.token = data.token
+            state.userinfo.isLoggedIn = data.isLoggedIn
+            console.log(state.userinfo)
+          }
+
     },
     actions: {
+        loadUserInfo({ commit }) {
+            // Use axios or any other library to send a request to your server
+            // to fetch the user's data
+            axios.get('/api/userinfo')
+              .then(({ data }) => {
+                console.log(data);
+                commit('setSession', data)
+              })
+          },
         checkSession({ commit }) {
             axios.get('/api/check-session')
                 .then(({ data }) => {
@@ -102,6 +130,15 @@ export default createStore({
         updateError({ commit }, { field, value }) {
             commit('setError', { field, value });
         },
+        setUsername({ commit }, username) {
+            commit('SET_USERNAME', username)
+        },
+        setSummonerName({ commit }, summonerName) {
+            commit('SET_SUMMONER', summonerName)
+        },
+        setRank({ commit }, rank) {
+            commit('SET_RANK', rank)
+        },
         async getRandomSummonerIcon({ commit }) {
             try {
                 const response = await axios.get('/api/summoner-icons/random');
@@ -121,6 +158,8 @@ export default createStore({
         },
     },
     plugins: [createPersistedState({
-        paths: ['isLoggedIn'],
+        paths: [
+            'userinfo'
+        ],
     })]
 });

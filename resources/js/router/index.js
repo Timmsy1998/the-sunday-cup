@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import store from '../store'
+import { Auth } from '../services/auth'
 
 
 // Pages
@@ -106,7 +107,10 @@ const router = createRouter({
                 {
                     path: 'dashboard',
                     component: Dashboard,
-                    meta: { layout: UserLayout },
+                    meta: {
+                        layout: UserLayout,
+                        requiresAuth: true
+                    },
                     beforeEnter(to, from, next) {
                         document.body.className = 'bg-user';
                         next();
@@ -119,23 +123,22 @@ const router = createRouter({
 
 
 router.beforeEach((to, from, next) => {
-    try {
-        store.dispatch('checkSession')
-            .then(() => {
-                if (to.path === '/user/dashboard') {
-                    if (store.state.isLoggedIn) {
-                        next();
-                    } else {
-                        next('/user/login');
-                    }
-                } else {
-                    next();
-                }
-            })
-    } catch (error) {
-        console.error(error);
+    store.dispatch('loadUserInfo')
+    // check if the route requires the user to be logged in
+    if (to.meta.requiresAuth) {
+        // check if the user is logged in
+        if (store.getters.isLoggedIn) {
+            // allow access to the route
+            next()
+        } else {
+            // redirect to the login page
+            next({ name: '/user/login' })
+        }
+    } else {
+        next()
     }
-});
+})
+
 
 
 export default router

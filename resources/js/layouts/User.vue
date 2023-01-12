@@ -7,6 +7,7 @@
                 <div class="col-12">
                     <div class="content-box">
                         <router-view />
+                        <button @click="logout">logout</button>
                     </div>
                 </div>
             </div>
@@ -23,7 +24,12 @@ export default {
     components: {
         Navigation,
         Topbar,
-    }
+    },
+    created() {
+        this.$store.dispatch('loadUserInfo')
+    },
+    mounted() {
+    },
 }
 </script>
 

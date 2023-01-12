@@ -6,12 +6,15 @@ use App\Models\User as User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Response;
 use GuzzleHttp\Client;
 use App\Models\Session as SessionModel;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class AuthController extends Controller
 {
@@ -79,28 +82,70 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        // Validate the request data
-        $validator = Validator::make($request->all(), [
+
+        $validatedData = $request->validate([
             'username' => 'required|string',
             'password' => 'required|string',
         ]);
 
-        if ($validator->fails()) {
-            return Response::json([
-                'errors' => $validator->errors()
-            ], 422);
+        $username = $validatedData['username'];
+        $password = $validatedData['password'];
+
+        htmlspecialchars($username, ENT_QUOTES, 'UTF-8');
+
+        if (Auth::attempt(['username' => $username, 'password' => $password])) {
+            // Authentication passed...
+            session()->put('user_id', auth()->user()->id);
+            $sessionId = session()->getId();
+            $user = Auth::user();
+            return response()->json([
+                'status' => 'success',
+                'username' => $user->username,
+                'user_id' => session()->get('user_id'),
+                'summonerName' => $user->summoner_name,
+                'rank' => $user->rank,
+                'isLoggedIn' => true,
+                'token' => $sessionId,
+            ], 200);
         }
+    }
 
-        $credentials = $request->only('username', 'password');
+    public function logout()
+    {
+        Auth::logout();
+        session()->flush();
+        session()->regenerate();
+        return response()->json(['message' => 'Successfully logged out']);
+    }
 
-        // Attempt to log the user in
-        if (Auth::attempt($credentials)) {
-            Auth::login(Auth::user());
-            Session::put('user_id', Auth::user()->id);
-            Session::save();
-            return response()->json(['success' => true, 'session' => Auth::user()->session]);
+    public function check()
+    {
+        $sessionFound = auth()->check();
+        return response()->json([
+            'sessionFound' => $sessionFound,
+        ]);
+    }
+
+
+
+
+    public function userinfo()
+    {
+        if (Auth::check()) {
+            $user = User::find(Auth::user()->id);
+            $sessionId = session()->getId();
+
+            return response()->json([
+                'username' => $user->username,
+                'email' => $user->email,
+                'summonerName' => $user->summoner_name,
+                'rank' => $user->rank,
+                'team_code' => $user->team_code,
+                'isLoggedIn' => true,
+                'token' => $sessionId,
+            ]);
         } else {
-            return response()->json(['success' => false]);
+            return response()->json(['message' => 'Unauthorized', 'isLoggedIn' => false], 401);
         }
     }
 }

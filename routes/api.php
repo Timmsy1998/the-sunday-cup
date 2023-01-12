@@ -23,7 +23,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Auth API Routes
 Route::post('/register', 'App\Http\Controllers\AuthController@register');
 Route::post('/login', 'App\Http\Controllers\AuthController@login');
-Route::get('/check-session', 'App\Http\Controllers\API\SessionController@check');
+Route::post('/logout', 'App\Http\Controllers\AuthController@logout');
+Route::get('/check-session', 'App\Http\Controllers\AuthController@check');
+Route::get('/userinfo', 'App\Http\Controllers\AuthController@userinfo');
+
 
 
 // Riot API Routes

@@ -35,11 +35,10 @@ export default {
             const { username, password } = this
             try {
                 await axios.post('/api/login', { username, password }).then(response => {
-                    if (response.data.success) {
-                        // Update the Vuex store to set the user's logged-in state to true
-                        this.$store.commit('setIsLoggedIn', true);
-                        // Store the session data in the Vuex store
-                        this.$store.commit('setSession', response.data.session);
+                    if (response.data.status === "success") {
+
+                        // Store response in the VueX Store
+                        this.$store.commit('setSession', response.data)
 
                         // Show success message and then do a count-down push to allow the API to catch up
                         this.success = 'Successfully logged in';

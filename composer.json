@@ -12,7 +12,8 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.1",
-        "monolog/monolog": "^2.8"
+        "monolog/monolog": "^2.8",
+        "nesbot/carbon": "^2.65"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
