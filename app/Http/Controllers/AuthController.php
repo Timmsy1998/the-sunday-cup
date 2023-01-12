@@ -23,25 +23,28 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         // Validate the request data
-        $validator = Validator::make($request->all(), [
+        $validatedData = $request->validate([
             'username' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
             'summonerName' => 'required|string|min:3',
         ]);
 
-        if ($validator->fails()) {
-            return Response::json([
-                'errors' => $validator->errors()
-            ], 422);
-        }
+        $username = $validatedData['username'];
+        $password = $validatedData['password'];
+        $summonerName = $validatedData['summonerName'];
+        $email = $validatedData['email'];
 
+        $safeusername = htmlspecialchars($username, ENT_QUOTES, 'UTF-8');
+        $safepassword = htmlspecialchars($password, ENT_QUOTES, 'UTF-8');
+        $safesummonername = htmlspecialchars($summonerName, ENT_QUOTES, 'UTF-8');
+        $safeemail = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
         // Create the user
         $user = User::create([
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-            'summoner_name' => $request->summonerName,
+            'username' => $safeusername,
+            'email' => $safeemail,
+            'password' => bcrypt($safepassword),
+            'summoner_name' => $safesummonername,
             'summoner_verified' => $request->summoner_verified,
             'rank' => $request->rank,
             'team_code' => NULL,
@@ -60,16 +63,20 @@ class AuthController extends Controller
         ], 201);
 
         // Start a Session For The Newly Registered User
-        if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
+        if (Auth::attempt(['username' => $safeusername, 'password' => $safepassword])) {
+            // Authentication passed...
+            session()->put('user_id', auth()->user()->id);
+            $sessionId = session()->getId();
             $user = Auth::user();
-            $session = Session::createSession($user);
-
-            // Return a response
-            return Response::json([
-                'message' => 'Successfully logged in',
-                'user' => Auth::user(),
-                'session' => $session
-            ], 201);
+            return response()->json([
+                'status' => 'success',
+                'username' => $user->username,
+                'user_id' => session()->get('user_id'),
+                'summonerName' => $user->summoner_name,
+                'rank' => $user->rank,
+                'isLoggedIn' => true,
+                'token' => $sessionId,
+            ], 200);
         } else {
             // Return a response
             return Response::json([
@@ -91,9 +98,10 @@ class AuthController extends Controller
         $username = $validatedData['username'];
         $password = $validatedData['password'];
 
-        htmlspecialchars($username, ENT_QUOTES, 'UTF-8');
+        $safeusername = htmlspecialchars($username, ENT_QUOTES, 'UTF-8');
+        $safepassword = htmlspecialchars($password, ENT_QUOTES, 'UTF-8');
 
-        if (Auth::attempt(['username' => $username, 'password' => $password])) {
+        if (Auth::attempt(['username' => $safeusername, 'password' => $safepassword])) {
             // Authentication passed...
             session()->put('user_id', auth()->user()->id);
             $sessionId = session()->getId();

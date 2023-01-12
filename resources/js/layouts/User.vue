@@ -7,7 +7,6 @@
                 <div class="col-12">
                     <div class="content-box">
                         <router-view />
-                        <button @click="logout">logout</button>
                     </div>
                 </div>
             </div>
