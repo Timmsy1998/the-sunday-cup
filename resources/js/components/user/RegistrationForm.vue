@@ -218,7 +218,7 @@ export default {
                 await axios.post('/api/register', data);
 
                 // Redirect to login page
-                this.$router.push('login');
+                this.$router.push('/user/dashboard');
             } catch (error) {
                 if (error.response.status === 422) {
                     store.commit('setErrors', error.response.data.errors);
