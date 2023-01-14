@@ -37,4 +37,3 @@ Route::get('/summoner-icons/all', 'App\Http\Controllers\ApiController@getAllSumm
 Route::get('/summoner-icons/available', 'App\Http\Controllers\ApiController@getAvailableSummonerIcons');
 Route::get('/summoner-icons/random', 'App\Http\Controllers\ApiController@getRandomSummonerIcon');
 Route::patch('/summoner/rank-update', 'App\Http\Controllers\UserController@updateRank');
-

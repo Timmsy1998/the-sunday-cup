@@ -2,13 +2,13 @@ import { createRouter, createWebHistory } from 'vue-router'
 import store from '../store'
 import { Auth } from '../services/auth'
 
-
 // Pages
 import Landing from '@/pages/Landing.vue'
 import Home from '@/pages/main/Home.vue'
 import About from '@/pages/main/About.vue'
 import Contact from '@/pages/main/Contact.vue'
 import HallOfFame from '@/pages/main/HallOfFame.vue'
+import Mobile from '@/pages/main/Mobile.vue'
 
 import Dashboard from '@/pages/user/Dashboard.vue'
 import Register from '@/pages/user/Register.vue'
@@ -18,7 +18,14 @@ import Login from '@/pages/user/Login.vue'
 import LandingLayout from '@/layouts/Landing.vue'
 import MainLayout from '@/layouts/Main.vue'
 import UserLayout from '@/layouts/User.vue'
+import MobileLayout from '@/layouts/Mobile.vue'
 
+// Check For Mobile
+const userAgent = window.navigator.userAgent
+const android = userAgent.includes('Android')
+const ios = userAgent.includes('iPhone')
+
+// Build The Router
 const history = createWebHistory()
 const router = createRouter({
     history,
@@ -26,6 +33,15 @@ const router = createRouter({
         {
             path: '/',
             redirect: '/landing',
+            beforeEnter(to, from, next) {
+                document.body.className = 'bg-default';
+                next();
+            },
+        },
+        {
+            path: '/mobile',
+            component: Mobile,
+            meta: { layout: MobileLayout },
             beforeEnter(to, from, next) {
                 document.body.className = 'bg-default';
                 next();
@@ -124,15 +140,27 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     store.dispatch('loadUserInfo')
-    // check if the route requires the user to be logged in
-    if (to.meta.requiresAuth) {
-        // check if the user is logged in
-        if (store.getters.isLoggedIn) {
-            // allow access to the route
-            next()
+    console.log(userAgent)
+    console.log(android)
+    console.log(ios)
+
+    // check if user is on mobile, if so redirect
+    if (to.path != "/mobile") {
+        if (android == false && ios == false) {
+            if (to.meta.requiresAuth) {
+                // check if the user is logged in
+                if (store.getters.isLoggedIn) {
+                    // allow access to the route
+                    next()
+                } else {
+                    // redirect to the login page
+                    next({ path: '/user/login' })
+                }
+            } else {
+                next()
+            }
         } else {
-            // redirect to the login page
-            next({ name: '/user/login' })
+            next({ path: '/mobile' })
         }
     } else {
         next()

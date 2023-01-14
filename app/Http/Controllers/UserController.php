@@ -31,7 +31,12 @@ class UserController extends Controller
                         break;
                     }
                 }
-                $rankValue = $soloTier . ' ' . $soloRank;
+
+                if(!$apiData) {
+                    $rankValue = "Unranked";
+                } else {
+                    $rankValue = $soloTier . ' ' . $soloRank;
+                }
 
                 // Update the user's rank in the database
                 $user->rank = $rankValue;

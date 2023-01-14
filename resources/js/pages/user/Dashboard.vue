@@ -9,7 +9,7 @@
                         </div>
                         <div class="card-body">
                             <!-- Upcoming events data goes here -->
-                            <table class="table table-striped">
+                            <table class="table table-striped" v-if="recentNotifications.length">
                                 <thead>
                                     <tr>
                                         <th>Event</th>
@@ -25,6 +25,9 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <div v-else class="text-center">
+                                No Upcoming Events
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -35,14 +38,18 @@
                         </div>
                         <div class="card-body">
                             <!-- Recent notifications data goes here -->
-                            <ul class="list-group">
+                            <ul class="list-group" v-if="recentNotifications.length">
                                 <li class="list-group-item" v-for="notification in recentNotifications"
                                     :key="notification.id">{{ notification.message }}</li>
                             </ul>
+                            <div v-else class="text-center">
+                                No notifications found
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <hr>
             <div class="row">
                 <div class="col-md-12">
                     <div class="jumbotron jumbotron-fluid">
@@ -52,11 +59,11 @@
                                 We're glad you're here! This is your dashboard where you can view important information
                                 and statistics about your account.
                             </p>
-                            <hr class="my-4">
                         </div>
                     </div>
                 </div>
             </div>
+            <hr>
             <div class="row">
                 <div class="col-md-4">
                     <div class="card">

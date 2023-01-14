@@ -13,7 +13,6 @@ app.use(Vuex)
 app.use(router)
 app.use(store)
 
-
 app.mixin({
   beforeRouteEnter(to, from, next) {
     if (to.meta.layout === MainLayout) {

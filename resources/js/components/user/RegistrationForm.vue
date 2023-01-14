@@ -215,10 +215,15 @@ export default {
                 console.log(data);
 
                 // Send request to server
-                await axios.post('/api/register', data);
+                await axios.post('/api/register', data).then(response => {
+                    if (response.data.status === "success") {
+                        // Store response in the VueX Store
+                        this.$store.commit('setSession', response.data);
 
-                // Redirect to login page
-                this.$router.push('/user/dashboard');
+                        // Redirect to dashboard
+                        this.$router.push('/user/dashboard');
+                    }
+                })
             } catch (error) {
                 if (error.response.status === 422) {
                     store.commit('setErrors', error.response.data.errors);
@@ -246,21 +251,12 @@ export default {
                 const response = await axios.get(`/api/summoner/${summonerName}`);
                 const summonerData = response.data;
 
-                const rankedinfo = await axios.get(`/api/summoner/${summonerName}/rank`);
-                const rankedData = rankedinfo.data[0];
-                console.log(rankedData);
-
                 const profileIcon = summonerData.profileIconId;
-                const rank = rankedData.tier + ' ' + rankedData.rank;
-
-                store.commit('setRank', rank);
 
                 // Check if summoner icon matches the one stored in the store
                 if (profileIcon === randomIcon) {
                     // Set isVerified to true in the store
                     store.commit('setIsVerified', true);
-                    console.log(rank);
-                    console.log(store.state.regForm.rank);
                     showVerifyButton.value = false;
                 } else {
                     // Show error message

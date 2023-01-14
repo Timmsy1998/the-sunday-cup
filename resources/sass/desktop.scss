@@ -306,6 +306,7 @@
             justify-content: center;
 
             .content-box {
+                margin-bottom: 10vh;
                 margin-top: 10vh;
                 margin-left: 10vh;
                 background-color: $content-container;
@@ -334,6 +335,14 @@
                 .center-button {
                     margin-left: 50%;
                 }
+            }
+        }
+
+        .dashboard {
+
+            hr {
+                margin-top: 3rem;
+                margin-bottom: 3rem;
             }
         }
 

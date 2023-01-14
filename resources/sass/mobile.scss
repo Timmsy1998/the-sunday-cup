@@ -1,3 +1,39 @@
 @media (max-width: 767px) {
+    body {
+        font-family: $amaranth;
+        overflow-x: hidden;
 
+        &.bg-user {
+            background-color: $bg-user;
+        }
+
+        &.bg-default {
+            background-color: $bg-default;
+        }
+    }
+
+    .mobile-layout {
+        .container {
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .content-box {
+                margin-bottom: 10vh;
+                margin-top: 10vh;
+                width: 75vw;
+                height: 50vh;
+                background-color: $content-container;
+                padding: 16px;
+                border-radius: 5px;
+                box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+            }
+        }
+        hr {
+            margin-top: 3rem;
+            margin-bottom: 3rem;
+        }
+
+    }
 }
