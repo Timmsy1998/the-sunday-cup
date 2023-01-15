@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->string('email')->unique();
+            $table->unsignedBigInteger('role_id')->after('id')->default(1);
             $table->string('summoner_name')->unique();
             $table->string('rank')->nullable();
             $table->boolean('summoner_verified')->default(false);

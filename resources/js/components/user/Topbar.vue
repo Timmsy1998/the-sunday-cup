@@ -12,7 +12,7 @@
                     <span class="nav-link" style="margin-top: 1rem;" v-else>Welcome Summoner!</span>
                 </li>
                 <li class="nav-item">
-                    <img :src="'http://ddragon.leagueoflegends.com/cdn/12.23.1/img/profileicon/' + summonerIconID + '.png'" class="nav-link img-circle" alt="Avatar"
+                    <img :src="'https://ddragon.leagueoflegends.com/cdn/13.1.1/img/profileicon/' + summonerIconID + '.png'" class="nav-link img-circle" alt="Avatar"
                         v-if="logincheck">
                     <img src="../../../images/avatar-placeholder.png" class="nav-link img-circle" alt="Avatar" v-else>
                 </li>

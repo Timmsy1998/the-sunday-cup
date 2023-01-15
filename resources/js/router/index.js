@@ -19,6 +19,7 @@ import LandingLayout from '@/layouts/Landing.vue'
 import MainLayout from '@/layouts/Main.vue'
 import UserLayout from '@/layouts/User.vue'
 import MobileLayout from '@/layouts/Mobile.vue'
+import { nextTick } from 'vue'
 
 // Check For Mobile
 const userAgent = window.navigator.userAgent
@@ -125,7 +126,8 @@ const router = createRouter({
                     component: Dashboard,
                     meta: {
                         layout: UserLayout,
-                        requiresAuth: true
+                        requiresAuth: true,
+                        minRole: "1",
                     },
                     beforeEnter(to, from, next) {
                         document.body.className = 'bg-user';
@@ -140,18 +142,33 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     store.dispatch('loadUserInfo')
-    console.log(userAgent)
-    console.log(android)
-    console.log(ios)
-
     // check if user is on mobile, if so redirect
     if (to.path != "/mobile") {
         if (android == false && ios == false) {
             if (to.meta.requiresAuth) {
                 // check if the user is logged in
                 if (store.getters.isLoggedIn) {
-                    // allow access to the route
-                    next()
+                    if (to.meta.minRole >= "1") {
+                        next()
+                    } else if (to.meta.minRole >= "2") {
+                        if (store.getters.role >= "2") {
+                            next()
+                        } else {
+                            next({ path: '/user/dashboard' })
+                        }
+                    } else if (to.meta.minRole >= "3") {
+                        if (store.getters.role >= "3") {
+                            next()
+                        } else {
+                            next({ path: '/user/dashboard' })
+                        }
+                    } else if (to.meta.minRole >= "4") {
+                        if (store.getters.role >= "4") {
+                            next()
+                        } else {
+                            next({ path: '/user/dashboard' })
+                        }
+                    }
                 } else {
                     // redirect to the login page
                     next({ path: '/user/login' })

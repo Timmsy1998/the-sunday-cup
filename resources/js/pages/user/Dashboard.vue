@@ -68,11 +68,15 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-header">
-                            <i class="fas fa-chart-line"></i> Infographic 1
+                            <i class="fas fa-chart-line"></i> Your Current Rank
                         </div>
-                        <div class="card-body">
-                            <!-- Content for infographic 1 goes here -->
-                            <canvas id="infographic1"></canvas>
+                        <div class="card-body align-items-center justify-content-center text-center">
+                            <img class="img-fluid w-75"
+                                :src="'https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-shared-components/global/default/' + rankTier + '.png'" />
+                            <br />
+                            <p class="lead">
+                                {{ rank }}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -114,9 +118,26 @@ export default {
             upcomingEvents: [],
             recentNotifications: [],
             recentActivity: [],
+            rankTier: '',
         }
     },
-    components: {
+    methods: {
+        async getRankIcon() {
+            try {
+                const response = await axios.get(`/api/summoner/${this.summonerName}/rank`)
+                let tier = "unranked"
+                if (response.data[0].tier) {
+                    tier = response.data[0].tier
+                    tier = tier.toLowerCase();
+                }
+                this.rankTier = tier
+            } catch (error) {
+                console.error(error)
+            }
+        },
+    },
+    created() {
+        this.getRankIcon()
     },
     computed: {
         ...mapGetters(['username', 'summonerName', 'rank', 'isLoggedIn', 'token']),

@@ -285,6 +285,12 @@
                     justify-content: center;
                     align-items: center;
                 }
+
+                &.logout-link{
+                    position: absolute;
+                    bottom: 0;
+                    width: 100%;
+                }
             }
 
             .collapse-enter-active,

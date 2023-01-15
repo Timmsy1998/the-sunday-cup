@@ -148,6 +148,7 @@ class AuthController extends Controller
                 'email' => $user->email,
                 'summonerName' => $user->summoner_name,
                 'rank' => $user->rank,
+                'role' => $user->role_id,
                 'team_code' => $user->team_code,
                 'isLoggedIn' => true,
                 'token' => $sessionId,

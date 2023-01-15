@@ -13,6 +13,7 @@ export default createStore({
             username: '',
             summonerName: '',
             rank: '',
+            role: '',
             isLoggedIn: false,
             token: '',
         },
@@ -29,6 +30,7 @@ export default createStore({
         username: state => state.userinfo.username,
         summonerName: state => state.userinfo.summonerName,
         rank: state => state.userinfo.rank,
+        role: state => state.userinfo.role,
         isLoggedIn: state => state.userinfo.isLoggedIn,
         token: state => state.userinfo.token,
     },
@@ -93,8 +95,17 @@ export default createStore({
             state.userinfo.summonerName = data.summonerName
             state.userinfo.token = data.token
             state.userinfo.isLoggedIn = data.isLoggedIn
+            state.userinfo.role = data.role
             console.log(state.userinfo)
-          }
+        },
+        clearUserData(state) {
+            state.userinfo.username = '';
+            state.userinfo.rank = '';
+            state.userinfo.summonerName = '';
+            state.userinfo.token = '';
+            state.userinfo.isLoggedIn = false;
+            state.userinfo.role = data.role
+        },
 
     },
     actions: {
@@ -102,11 +113,11 @@ export default createStore({
             // Use axios or any other library to send a request to your server
             // to fetch the user's data
             axios.get('/api/userinfo')
-              .then(({ data }) => {
-                console.log(data);
-                commit('setSession', data)
-              })
-          },
+                .then(({ data }) => {
+                    console.log(data);
+                    commit('setSession', data)
+                })
+        },
         checkSession({ commit }) {
             axios.get('/api/check-session')
                 .then(({ data }) => {

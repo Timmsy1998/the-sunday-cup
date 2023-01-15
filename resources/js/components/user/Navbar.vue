@@ -23,6 +23,12 @@
                         </a>
                     </li>
                 </ul>
+            <li class="nav-item logout-link" @click="logout" v-if="isLoggedIn">
+                <a class="nav-link d-flex" style="cursor: pointer;">
+                    <i class="fas fa-sign-out-alt" style="margin-right: 1rem;"></i>
+                    <span class="d-none d-md-flex">Logout</span>
+                </a>
+            </li>
             </li>
         </ul>
     </nav>
@@ -96,6 +102,7 @@ export default {
                             icon: 'fas fa-user',
                             link: '/settings/account'
                         }
+
                     ]
                 }
             ],
@@ -111,6 +118,19 @@ export default {
     methods: {
         toggleSidebar() {
             this.isExpanded = !this.isExpanded;
+        },
+        async logout() {
+            try {
+                // Send a post request to the logout endpoint
+                await axios.post('/api/logout');
+                // Clear the user's data from the store
+                localStorage.removeItem('vuex');
+                this.$store.commit('clearUserData')
+                // redirect the user to login page
+                this.$router.push({ name: '/user/login' });
+            } catch (error) {
+                console.log(error);
+            }
         },
     },
     mounted() {
