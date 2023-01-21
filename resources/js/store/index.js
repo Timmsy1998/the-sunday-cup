@@ -15,6 +15,7 @@ export default createStore({
             rank: '',
             role: '',
             isLoggedIn: false,
+            teamcode: '',
             token: '',
         },
         regForm: {
@@ -31,6 +32,7 @@ export default createStore({
         summonerName: state => state.userinfo.summonerName,
         rank: state => state.userinfo.rank,
         role: state => state.userinfo.role,
+        teamcode: state => state.userinfo.teamcode,
         isLoggedIn: state => state.userinfo.isLoggedIn,
         token: state => state.userinfo.token,
     },
@@ -96,6 +98,7 @@ export default createStore({
             state.userinfo.token = data.token
             state.userinfo.isLoggedIn = data.isLoggedIn
             state.userinfo.role = data.role
+            state.userinfo.teamcode = data.teamcode
             console.log(state.userinfo)
         },
         clearUserData(state) {
@@ -104,7 +107,7 @@ export default createStore({
             state.userinfo.summonerName = '';
             state.userinfo.token = '';
             state.userinfo.isLoggedIn = false;
-            state.userinfo.role = data.role
+            state.userinfo.role = '';
         },
 
     },

@@ -1,3 +1,346 @@
 @media (max-width: 1199px) and (min-width: 992px) {
+    body {
+        font-family: $amaranth;
+        overflow-x: hidden;
 
+        &.bg-user {
+            background-color: $bg-user;
+        }
+
+        &.bg-default {
+            background-color: $bg-default;
+        }
+    }
+
+    .landing-layout {
+        .landing-page {
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            background-image: url("../images/TSC-Landing-Page-BG.gif");
+            background-repeat: repeat;
+        }
+
+        .btn-primary {
+            background-color: $gold;
+            border-color: $gold;
+            color: $purple;
+
+            &:hover {
+                background-color: lighten($gold, 10%);
+                border-color: lighten($gold, 10%);
+                color: $purple;
+            }
+        }
+
+        h1 {
+            color: $gold !important;
+            text-transform: uppercase !important;
+        }
+
+        p {
+            margin-bottom: 2rem;
+        }
+
+        .gold-text {
+            color: $gold;
+        }
+
+        .large-text {
+            font-size: 1rem;
+        }
+
+        .text-shadow {
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .text-border {
+            -webkit-text-stroke: 0.2rem $purple;
+            -moz-text-stroke: 0.2rem $purple;
+            text-stroke: 0.2rem $purple;
+        }
+
+        .container {
+            height: 100%;
+        }
+
+        .btn-group {
+            margin-top: 1rem;
+        }
+
+        .btn {
+            width: 500px;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+    }
+
+    .main-layout {
+        .text-gold {
+            color: $gold;
+        }
+
+        .text-purple {
+            color: $purple;
+        }
+
+        .font-amaranth {
+            font-family: "Amaranth", sans-serif;
+        }
+
+        .bg-purple {
+            background-color: $purple;
+        }
+
+        .shadow-sm {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-group#features {
+            margin-left: 5rem;
+            margin-right: 3rem;
+
+            .card {
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                margin-right: 2rem;
+                height: 40rem;
+                width: 8rem;
+                border-radius: 5rem;
+                background-color: $gold;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1);
+                text-align: center;
+                text-align-last: center;
+
+                h5 {
+                    &.card-title {
+                        color: $purple;
+                        font-family: $amaranth;
+                        font-size: 2rem;
+                    }
+                }
+
+                &.card-image {
+                    background-color: #1e0826;
+                    background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%238743a0' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
+
+                    img {
+                        height: 85%;
+                        width: 100%;
+                        border-top-left-radius: 5rem;
+                        border-top-right-radius: 5rem;
+                    }
+
+                    h5 {
+                        &.card-title {
+                            color: $gold;
+                            font-family: $amaranth;
+                        }
+                    }
+
+                    p {
+                        &.card-text {
+                            color: $gold;
+                            font-family: $amaranth;
+                        }
+                    }
+
+                    .card-body {
+                        #card-left {
+                            margin-right: 3rem;
+                        }
+
+                        i {
+                            font-size: 2.25rem;
+                            color: $gold;
+                            margin-top: 1rem;
+                        }
+                    }
+                }
+            }
+        }
+
+        .jumbotron {
+            height: 50vh;
+            width: 100vw;
+            margin-bottom: 10rem;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            .btn-group#main-cta {
+                display: flex;
+
+                button {
+                    height: 4rem;
+                    flex: 1;
+                    border-radius: 0.5rem;
+                    margin: 0 0.5rem;
+
+                    &:first-child,
+                    &:last-child {
+                        border-color: $gold;
+                        color: $gold;
+                        background-color: transparent;
+                        border-radius: 0.5rem;
+                    }
+
+                    &:nth-child(2) {
+                        background-color: $gold;
+                        color: $purple;
+                        border-radius: 0.5rem;
+                    }
+                }
+            }
+
+            .left-half {
+                width: 80rem;
+                height: 70rem;
+                flex-grow: 0;
+                margin-top: 10rem;
+            }
+
+            .left-half img {
+                width: 100%;
+                height: 100%;
+                -webkit-filter: drop-shadow(0 0 calc(100vh + 0.5rem) rgba($light-purple, 0.5))
+                    drop-shadow(0 0 calc(10vh - 0.5rem) rgba($light-purple, 0.5))
+                    drop-shadow(10vw -10vh 0.5rem rgba($light-purple, 0.1));
+                -webkit-transform: scaleX(-1) rotate(-25deg);
+            }
+
+            .right-half {
+                flex-grow: 1;
+                position: absolute;
+                right: 0;
+                margin-right: 15rem;
+                margin-top: 25rem;
+
+                p {
+                    max-width: 25rem;
+                    overflow-x: auto;
+                }
+
+                h1 {
+                    text-transform: uppercase;
+                }
+            }
+        }
+    }
+
+    .user-layout {
+        .topbar {
+            background-color: $purple;
+            color: $gold;
+            font-family: $amaranth;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            height: 5rem;
+
+            .nav-link.img-circle {
+                width: 64px;
+                height: 64px;
+                border-radius: 50%;
+            }
+
+            .nav-link {
+                font-size: 16px;
+                font-weight: 600;
+                color: $gold;
+                font-family: $amaranth;
+            }
+        }
+
+        .navigation {
+            background-color: $purple;
+            color: $gold;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 15vw;
+
+            .logo {
+                background: radial-gradient(ellipse farthest-corner at center, #5e2374 0%, #1e0826 75%);
+
+                img {
+                    height: 100px;
+                }
+            }
+
+            .nav-item {
+                &:hover {
+                    background-color: lighten($purple, 10%);
+                }
+
+                a {
+                    font-family: $amaranth;
+                    font-size: 1.2rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                &.logout-link {
+                    position: absolute;
+                    bottom: 0;
+                    width: 100%;
+                }
+            }
+
+            .collapse-enter-active,
+            .collapse-leave-active {
+                transition: max-height 5s ease;
+            }
+
+            .collapse-enter,
+            .collapse-leave-to {
+                max-height: 0;
+                overflow: hidden;
+            }
+        }
+
+        .container {
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .content-box {
+                margin-bottom: 10vh;
+                margin-top: 10vh;
+                margin-left: 10vh;
+                background-color: $content-container;
+                padding: 16px;
+                border-radius: 5px;
+                box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+            }
+
+            form {
+                width: 100%;
+                height: 100%;
+
+                label {
+                    color: $purple;
+                }
+
+                input {
+                    color: $purple;
+                }
+
+                button {
+                    background-color: $gold;
+                    color: $purple;
+                }
+
+                .center-button {
+                    margin-left: 50%;
+                }
+            }
+        }
+
+        .dashboard {
+            hr {
+                margin-top: 3rem;
+                margin-bottom: 3rem;
+            }
+        }
+    }
 }

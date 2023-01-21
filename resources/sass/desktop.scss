@@ -1,5 +1,4 @@
 @media (min-width: 1200px) {
-
     body {
         font-family: $amaranth;
         overflow-x: hidden;
@@ -14,12 +13,11 @@
     }
 
     .landing-layout {
-
         .landing-page {
             height: 100vh;
             background-size: cover;
             background-position: center;
-            background-image: url('../images/TSC-Landing-Page-BG.gif');
+            background-image: url("../images/TSC-Landing-Page-BG.gif");
             background-repeat: repeat;
         }
 
@@ -87,21 +85,18 @@
         }
 
         .font-amaranth {
-            font-family: 'Amaranth', sans-serif;
+            font-family: "Amaranth", sans-serif;
         }
 
         .bg-purple {
             background-color: $purple;
         }
 
-
-
         .shadow-sm {
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         .card-group#features {
-
             margin-left: 5rem;
             margin-right: 3rem;
 
@@ -152,7 +147,6 @@
                     }
 
                     .card-body {
-
                         #card-left {
                             margin-right: 3rem;
                         }
@@ -163,11 +157,8 @@
                             margin-top: 1rem;
                         }
                     }
-
                 }
-
             }
-
         }
 
         .jumbotron {
@@ -201,7 +192,6 @@
                         border-radius: 0.5rem;
                     }
                 }
-
             }
 
             .left-half {
@@ -209,13 +199,14 @@
                 height: 70rem;
                 flex-grow: 0;
                 margin-top: 10rem;
-
             }
 
             .left-half img {
                 width: 100%;
                 height: 100%;
-                -webkit-filter: drop-shadow(0 0 calc(100vh + 0.5rem) rgba($light-purple, 0.5)) drop-shadow(0 0 calc(10vh - 0.5rem) rgba($light-purple, 0.5)) drop-shadow(10vw -10vh 0.5rem rgba($light-purple, 0.1));
+                -webkit-filter: drop-shadow(0 0 calc(100vh + 0.5rem) rgba($light-purple, 0.5))
+                    drop-shadow(0 0 calc(10vh - 0.5rem) rgba($light-purple, 0.5))
+                    drop-shadow(10vw -10vh 0.5rem rgba($light-purple, 0.1));
                 -webkit-transform: scaleX(-1) rotate(-25deg);
             }
 
@@ -264,9 +255,10 @@
             background-color: $purple;
             color: $gold;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 15vw;
 
             .logo {
-                background-color: $light-purple;
+                background: radial-gradient(ellipse farthest-corner at center, #5e2374 0%, #1e0826 75%);
 
                 img {
                     height: 100px;
@@ -286,7 +278,7 @@
                     align-items: center;
                 }
 
-                &.logout-link{
+                &.logout-link {
                     position: absolute;
                     bottom: 0;
                     width: 100%;
@@ -345,14 +337,17 @@
         }
 
         .dashboard {
-
             hr {
                 margin-top: 3rem;
                 margin-bottom: 3rem;
             }
         }
 
-
-
+        .team {
+            hr {
+                margin-top: 3rem;
+                margin-bottom: 3rem;
+            }
+        }
     }
 }
